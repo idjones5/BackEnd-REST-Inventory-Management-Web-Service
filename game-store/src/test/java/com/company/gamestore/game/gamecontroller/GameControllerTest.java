@@ -41,42 +41,23 @@ public class GameControllerTest {
         gameRepository.deleteAll();
     }
 
-    // testing get games works
+    // testing get all games route works
     @Test
     public void shouldReturnAllGames() throws Exception {
-        // arrange and act
         mockMvc.perform(get("/game"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
-    // testing get by id works
+    // testing get by route id works
     @Test
     public void shouldReturnGame() throws Exception {
-
-        // arrange
-        Game game = new Game();
-        game.setTitle("Hollow Knight");
-        game.setEsrbRating("E10+");
-        game.setDescription("Hollow Knight is a 2017 Metroidvania video game developed and published by Team Cherry");
-        game.setPrice(new BigDecimal("19.99"));
-        game.setStudio("Team Cherry");
-        game.setQuantity(70);
-        game.setGameId(2);
-
-        // object to json
-        String inputJson = mapper.writeValueAsString(game);
-
-        mockMvc.perform(get("/game/2")
-                        .content(inputJson)
-                        .contentType(MediaType.APPLICATION_JSON)  // json format
-                        .accept(MediaType.APPLICATION_JSON)
-                )
+        mockMvc.perform(get("/game/2"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
-    // testing post works
+    // testing post route works
     @Test
     public void shouldCreateAndReturnNewGame() throws Exception {
 
@@ -103,7 +84,7 @@ public class GameControllerTest {
                 .andExpect(status().isCreated());              // status 201
     }
 
-    // should update game
+    // testing update game route works
     @Test
     public void shouldUpdate() throws Exception {
 
@@ -126,7 +107,7 @@ public class GameControllerTest {
                 .andExpect(status().isAccepted());
     }
 
-    // testing get by title works
+    // testing get by title route works
     @Test
     public void shouldReturnGameByTitle() throws Exception {
         mockMvc.perform(get("/game/title/Hollow Knight"))
@@ -134,7 +115,7 @@ public class GameControllerTest {
                 .andExpect(status().isOk());
     }
 
-    // testing get by studio works
+    // testing get by studio route works
     @Test
     public void shouldReturnGameByStudio() throws Exception {
         mockMvc.perform(get("/game/studio/Team Cherry"))
@@ -142,7 +123,7 @@ public class GameControllerTest {
                 .andExpect(status().isOk());
     }
 
-    // testing get by esrb works
+    // testing get by esrb route works
     @Test
     public void shouldReturnGameByRating() throws Exception {
         mockMvc.perform(get("/game/rating/E10+"))

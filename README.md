@@ -184,8 +184,8 @@
             "itemId": "Foo",
             "unitPrice: 1.00,
             "quantity": 1,
-            "subtotal": 1.00,
-            "tax": 1.00,
+            "subTotal": 1.00,
+            "salesTaxRate": 1.00,
             "processingFee": 1.00,
             "total": 1.00
         }

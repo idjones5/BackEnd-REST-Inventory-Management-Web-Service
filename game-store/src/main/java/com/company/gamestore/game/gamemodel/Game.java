@@ -1,7 +1,5 @@
 package com.company.gamestore.game.gamemodel;
 
-
-import com.company.gamestore.game.gamerepo.GameRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -9,8 +7,6 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
-import static com.company.gamestore.game.gamerepo.GameRepository.*;
 
 @Entity
 @JsonIgnoreProperties({"hibernateInitializer", "handler"})
