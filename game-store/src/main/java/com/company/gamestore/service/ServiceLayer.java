@@ -53,7 +53,6 @@ public class ServiceLayer {
         //Calculated Fields
         //Ensure that item exists in database
         if(normalizeItemType(invoice.getItemType()).equals("console")){
-            System.out.println("**************************\n"+invoice.getItemId()+"\n*********************************");
             Console console = consoleRepository.findById(invoice.getItemId()).orElseThrow(() ->
                     new NullPointerException("Console does not exist")
             );
@@ -94,7 +93,7 @@ public class ServiceLayer {
 
         //Calculate subtotal as (unit price * quantity)
         invoice.setSubTotal(invoice.getUnitPrice().multiply(BigDecimal.valueOf(invoice.getQuantity())));
-        System.out.println("*******************************\n" + invoice.getSubTotal() + "\n**********************************");
+
         //Get tax based on state and Calculate sales tax as (sales tax = tax * subtotal)
         invoice.setTax(salesTaxRate.get().getRate().multiply(invoice.getSubTotal()));
 
