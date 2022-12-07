@@ -1,6 +1,6 @@
 package com.company.gamestore.repository;
 
-import com.company.gamestore.models.Tshirt;
+import com.company.gamestore.model.Tshirt;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

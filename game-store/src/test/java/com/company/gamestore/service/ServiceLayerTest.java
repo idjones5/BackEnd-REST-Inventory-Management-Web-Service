@@ -25,6 +25,8 @@ public class ServiceLayerTest {
     InvoiceRepository invoiceRepository;
     ProcessingFeeRepository processingFeeRepository;
     SalesTaxRepository salesTaxRepository;
+    GameRepository gameRepository;
+    TshirtRepository tshirtRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -33,7 +35,7 @@ public class ServiceLayerTest {
         setUpProcessingFeeRepositoryMock();
         setUpSalesTaxRepositoryMock();
 
-        service = new ServiceLayer(consoleRepository, invoiceRepository, salesTaxRepository, processingFeeRepository);
+        service = new ServiceLayer(consoleRepository, invoiceRepository, salesTaxRepository, processingFeeRepository, gameRepository,tshirtRepository);
     }
 
     private void setUpConsoleRepositoryMock(){

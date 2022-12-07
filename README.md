@@ -35,7 +35,7 @@
 </p>
 
 <p>
-    Quote API Response:
+    Game API Response:
 
     { 
         {
@@ -89,7 +89,7 @@
     - Search for t-shirts by size
 
 <p>
-    Game GET Request Example:
+    T-Shirt GET Request Example:
 
     URI: /tshirts
     
@@ -101,7 +101,7 @@
 </p>
 
 <p>
-    Quote API Response:
+    T-Shirt API Response:
 
     { 
         {
@@ -124,7 +124,7 @@
     - Search for consoles by manufacturer
 
 <p>
-    Game GET Request Example:
+    Console GET Request Example:
 
     URI: /console
     
@@ -136,7 +136,7 @@
 </p>
 
 <p>
-    Quote API Response:
+    Console API Response:
 
     { 
         {
@@ -170,7 +170,7 @@
 </p>
 
 <p>
-    Quote API Response:
+    Invoice API Response:
 
     { 
         {
