@@ -1,4 +1,4 @@
-# Book Store
+# Game Store
 <hr>
 
 # Overview
