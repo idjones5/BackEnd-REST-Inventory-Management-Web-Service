@@ -1,13 +1,12 @@
 package com.company.gamestore.controller;
 
-import com.company.gamestore.models.Tshirt;
+import com.company.gamestore.model.Tshirt;
 import com.company.gamestore.repository.TshirtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

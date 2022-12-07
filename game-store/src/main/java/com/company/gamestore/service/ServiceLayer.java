@@ -1,13 +1,7 @@
 package com.company.gamestore.service;
 
-import com.company.gamestore.model.Console;
-import com.company.gamestore.model.Invoice;
-import com.company.gamestore.model.ProcessingFee;
-import com.company.gamestore.model.SalesTaxRate;
-import com.company.gamestore.repository.ConsoleRepository;
-import com.company.gamestore.repository.InvoiceRepository;
-import com.company.gamestore.repository.ProcessingFeeRepository;
-import com.company.gamestore.repository.SalesTaxRepository;
+import com.company.gamestore.model.*;
+import com.company.gamestore.repository.*;
 import com.company.gamestore.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +24,20 @@ public class ServiceLayer {
     ProcessingFeeRepository processingFeeRepository;
 
     @Autowired
-    public ServiceLayer(ConsoleRepository consoleRepository, InvoiceRepository invoiceRepository, SalesTaxRepository salesTaxRepository, ProcessingFeeRepository processingFeeRepository){
+    GameRepository gameRepository;
+
+    @Autowired
+    TshirtRepository tshirtRepository;
+
+    @Autowired
+    public ServiceLayer(ConsoleRepository consoleRepository, InvoiceRepository invoiceRepository, SalesTaxRepository salesTaxRepository,
+                        ProcessingFeeRepository processingFeeRepository, GameRepository gameRepository, TshirtRepository tshirtRepository){
         this.consoleRepository = consoleRepository;
         this.invoiceRepository = invoiceRepository;
         this.salesTaxRepository = salesTaxRepository;
         this.processingFeeRepository = processingFeeRepository;
+        this.gameRepository = gameRepository;
+        this.tshirtRepository = tshirtRepository;
     }
 
     @Transactional
@@ -75,11 +78,47 @@ public class ServiceLayer {
         }
 
         else if(normalizeItemType(invoice.getItemType()).equals("game")){
+            Game game = gameRepository.findById(invoice.getItemId()).orElseThrow(() ->
+                    new NullPointerException("Game does not exist")
+            );
 
+            // setting the type to how it is in the repository
+            invoice.setItemType("Game");
+
+            //If item exists, set unit price using price from the item's table
+            invoice.setUnitPrice(game.getPrice());
+
+            //Ensure that quantity of specific item is available; If so, reduce quantity by quantity provided by user
+            if(game.getQuantity() >= invoice.getQuantity()){
+                //reduce quantity in DB by invoice quantity
+                game.setQuantity(game.getQuantity() - invoice.getQuantity());
+                gameRepository.save(game);  //update game
+            }
+            else{
+                throw new IllegalArgumentException("Not enough games in stock");
+            }
         }
 
         else if(normalizeItemType(invoice.getItemType()).equals("tshirt")){
+            Tshirt tshirt = tshirtRepository.findById(invoice.getItemId()).orElseThrow(() ->
+                            new NullPointerException("T-Shirt does not exist")
+            );
 
+            // setting the type to how it is in the repository
+            invoice.setItemType("T-Shirt");
+
+            //If item exists, set unit price using price from the item's table
+            invoice.setUnitPrice(tshirt.getPrice());
+
+            //Ensure that quantity of specific item is available; If so, reduce quantity by quantity provided by user
+            if(tshirt.getQuantity() >= invoice.getQuantity()){
+                //reduce quantity in DB by invoice quantity
+                tshirt.setQuantity(tshirt.getQuantity() - invoice.getQuantity());
+                tshirtRepository.save(tshirt);  //update t-shirt
+            }
+            else{
+                throw new IllegalArgumentException("Not enough T-shirts in stock");
+            }
         }
 
         else{
